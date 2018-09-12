@@ -66,27 +66,6 @@ def find_closest_image(q, shared_tile_images, tile_images_shape, shared_result, 
         im_res[row:row+tile_row,col:col+tile_col,:] = min_img
         q.task_done()
 
-def move_files():
-    filenames = os.listdir(IMG_DIR)
-
-    for filename in filenames:
-        if not re.search(".jpg", filename, re.I):
-            continue
-        try:
-            filepath = os.path.join(IMG_DIR, filename)
-            im = cv2.imread(filepath)
-            row = im.shape[0]
-            col = im.shape[1]
-            print(filepath)
-            if row >= col:
-                newpath = os.path.join(dir_port, filename)
-                os.rename(filepath, newpath)
-            else:
-                newpath = os.path.join(dir_land, filename)
-                os.rename(filepath, newpath)
-        except Exception as e:
-            msg = "error with {} - {}".format(filepath, str(e))
-
 def get_tile_row_col(shape):
     if shape[0] >= shape[1]:
         return [120, 90]
